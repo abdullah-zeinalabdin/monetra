@@ -1,6 +1,10 @@
+import { Stack } from "@mui/material"
+import Navbar from './header/Navbar.tsx'
 function App() {
   return (
-    <h1>Monetra</h1>
+    <Stack height="100vh" bgcolor={'background.default'}>
+      <Navbar />
+    </Stack>
   )
 }
 
