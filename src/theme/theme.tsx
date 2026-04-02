@@ -10,8 +10,8 @@ const theme = createTheme({
             main: '#0EA5E9',
         },
         text: {
-            primary: '#FFFFFF',
-            secondary: '#B3B3B3',
+            primary: '#F1F5F9',
+            secondary: '#94A3B8',
         },
         background: {
             default: '#0F172A',
