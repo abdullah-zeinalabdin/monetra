@@ -5,7 +5,7 @@ import TransactionContainer from "./transactions/TransactionCotainer";
 
 export default function Dashboard() {
     return (
-        <Stack direction={{xs: 'column', md: 'row'}} spacing={4} p={4} >
+        <Stack direction={{xs: 'column', lg: 'row'}} spacing={4} p={4} >
             <SidePages />
             <StatsContainer />
             <TransactionContainer />
