@@ -4,7 +4,7 @@ import GraphStats from "./GraphStats";
 
 export default function StatsContainer() {
     return (
-        <Stack spacing={2}>
+        <Stack flex={2} spacing={2}>
             <ExpensesStats />
             <GraphStats />
         </Stack>
