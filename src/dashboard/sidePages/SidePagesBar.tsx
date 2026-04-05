@@ -16,13 +16,13 @@ export default function SidePagesBar() {
         {id: 5, label: 'Help', icon: <QuestionMark />},
     ]
     return (
-        <Stack spacing={5}>
+        <Stack justifyContent={{xs: 'center', md: 'initial'}} spacing={5} direction={{xs: 'row', md: 'column'}}>
             {
                 navItems.map((item) => {
                     return (
-                        <Stack key={item.id} color="text.secondary" direction='row' spacing={3} alignItems='center'>
+                        <Stack key={item.id} color="text.secondary" direction='row' spacing={3} p={1} alignItems='center'>
                             {item.icon}
-                            <Typography variant="h4">{item.label}</Typography>
+                            <Typography display={{xs: 'none', md: 'initial'}} variant="h4">{item.label}</Typography>
                         </Stack>
                     )
                 })
