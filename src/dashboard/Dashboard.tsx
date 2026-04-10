@@ -10,6 +10,9 @@ export default function Dashboard() {
     const handleOpen = () => {
         setOpen(true);
     }
+    const handleClose = () => {
+        setOpen(false);
+    }
     return (
         <>
             <Stack direction={{xs: 'column', lg: 'row'}} spacing={4} p={4} >
@@ -17,7 +20,7 @@ export default function Dashboard() {
                 <StatsContainer />
                 <TransactionContainer setOpen={handleOpen} />
             </Stack>
-            <FormDialog open={open} />
+            <FormDialog open={open} handleClose={handleClose} />
         </>
     )
 }
