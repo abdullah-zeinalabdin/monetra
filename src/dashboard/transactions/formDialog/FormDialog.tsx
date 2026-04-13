@@ -6,7 +6,7 @@ import FormDialogContent from './FormDialogContent'
 
 type Props = {
     open: boolean;
-    handleClose: () => void;
+    onClose: () => void;
 }
 
 export type FormState = {
@@ -17,7 +17,7 @@ export type FormState = {
 }
 
 export type MyFormEvents<T = string | number> = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<T>;
-export default function FormDialog({ open, handleClose }: Props) {
+export default function FormDialog({ open, onClose }: Props) {
     const [form, setForm] = useState<FormState>({
         type: "expense",
         title: "",
@@ -25,11 +25,11 @@ export default function FormDialog({ open, handleClose }: Props) {
         category: "",
     });
     const handleChange = (event: MyFormEvents) => {
-        const { name, value } = event.target;
-        setForm(prev => ({...prev, [name as string]: name === "amount" ? Number(value) : value}));
+        const { name, value } = event.target as HTMLInputElement;
+        setForm(prev => ({...prev, [name]: name === "amount" ? Number(value) : value}));
     };
     return (
-        <Dialog open={open} 
+        <Dialog open={open} onClose={onClose}
         sx={{
             "& .MuiPaper-root": {
                 width: "50vw",   
@@ -37,9 +37,9 @@ export default function FormDialog({ open, handleClose }: Props) {
         }}
         >
             <DialogTitle>Add Expense</DialogTitle>
-            <FormDialogContent form={form} handleChange={handleChange}/>
+            <FormDialogContent form={form} handleChange={handleChange} onClose={onClose}/>
             <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={onClose}>Cancel</Button>
                 <Button type="submit" form="transaction-form">
                     Confirm
                 </Button>

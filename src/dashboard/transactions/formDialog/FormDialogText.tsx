@@ -9,7 +9,7 @@ export default function FormDialogText( { title, form, handleChange }: Props) {
     return (
         <Stack width="100%" mb={1}>
             <Typography mb={1} color='text.primary'>{title}</Typography>
-            <TextField name="title" fullWidth variant="outlined" value={form[title]} onChange={handleChange} />
+            <TextField name={title} fullWidth variant="outlined" value={form[title]} onChange={handleChange} />
         </Stack>
     )
 }

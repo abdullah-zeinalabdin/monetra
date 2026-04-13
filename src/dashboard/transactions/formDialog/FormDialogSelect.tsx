@@ -19,7 +19,7 @@ export default function FormDialogSelect( { title, name, options, form, handleCh
                 >
                     {options.map((option) => {
                         return (
-                            <MenuItem value={option}>{option}</MenuItem>
+                            <MenuItem key={option} value={option}>{option}</MenuItem>
                         )
                     })}
             </Select>

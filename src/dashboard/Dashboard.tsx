@@ -20,7 +20,7 @@ export default function Dashboard() {
                 <StatsContainer />
                 <TransactionContainer setOpen={handleOpen} />
             </Stack>
-            <FormDialog open={open} handleClose={handleClose} />
+            <FormDialog open={open} onClose={handleClose} />
         </>
     )
 }
