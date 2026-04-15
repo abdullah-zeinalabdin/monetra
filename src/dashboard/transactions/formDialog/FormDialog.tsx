@@ -1,7 +1,7 @@
 import { Dialog, DialogActions, DialogTitle, Button } from '@mui/material'
 import type { SelectChangeEvent } from '@mui/material/Select'
 import { useState } from 'react'
-import type { TransactionType } from '../../../types/transaction'
+import type { Categories, TransactionType } from '../../../types/transaction'
 import FormDialogContent from './FormDialogContent'
 
 type Props = {
@@ -13,7 +13,7 @@ export type FormState = {
     type: TransactionType;
     title: string;
     amount: number;
-    category: string;
+    category: Categories;
 }
 
 export type MyFormEvents<T = string | number> = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<T>;
@@ -22,7 +22,7 @@ export default function FormDialog({ open, onClose }: Props) {
         type: "expense",
         title: "",
         amount: 0,
-        category: "",
+        category: "food",
     });
     const handleChange = (event: MyFormEvents) => {
         const { name, value } = event.target as HTMLInputElement;
