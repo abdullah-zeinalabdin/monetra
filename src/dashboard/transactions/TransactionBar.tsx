@@ -2,14 +2,16 @@ import { Box, Stack, Typography, Divider, IconButton, Menu, MenuItem} from "@mui
 import MoreVert from '@mui/icons-material/MoreVert'
 import type { TransactionType } from "../../types/transaction"
 import { useState } from "react"
+import { useTransaction } from "../../hook/useTransactions"
 type Props = {
+    id: string;
     icon: React.ReactNode;
     title: string;
     category: string;
     amount: number;
     type: TransactionType;
 }
-export default function TransactionBar({icon, title, category, amount, type}: Props) {
+export default function TransactionBar({id, icon, title, category, amount, type}: Props) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -18,6 +20,7 @@ export default function TransactionBar({icon, title, category, amount, type}: Pr
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const { removeTransaction } = useTransaction();
     return (
         <>
             <Stack p={2} direction='row' justifyContent='space-between' alignItems='center' spacing={2}>
@@ -54,7 +57,12 @@ export default function TransactionBar({icon, title, category, amount, type}: Pr
                         onClose={handleClose}
                     >
                         <MenuItem onClick={handleClose}>Edit</MenuItem>
-                        <MenuItem onClick={handleClose}>Remove</MenuItem>
+                        <MenuItem onClick={() => {
+                            removeTransaction(id);
+                            handleClose();
+                        }}>
+                        Remove
+                        </MenuItem>
                     </Menu>
                 </Stack>
             </Stack>

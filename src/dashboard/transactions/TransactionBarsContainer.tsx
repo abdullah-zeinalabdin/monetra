@@ -37,6 +37,7 @@ export default function TransactionBarsContainer() {
                 return (
                     <TransactionBar
                     key={t.id} 
+                    id={t.id}
                     icon={selectConfig[t.category].icon} 
                     title={t.title} 
                     category={selectConfig[t.category].label} 
