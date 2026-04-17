@@ -2,9 +2,10 @@ import { Stack, Typography } from "@mui/material";
 import { Wallet, AddBox } from '@mui/icons-material';
 type Props = {
     setOpen: () => void;
+    handleAddMode: () => void;
 }
 
-export default function TransactionFooter({ setOpen }: Props) {
+export default function TransactionFooter({ setOpen, handleAddMode }: Props) {
     return (
         <Stack direction='row' p={3} alignItems='center' spacing={2} justifyContent='space-between'>
             <Stack color='text.primary' direction='row' spacing={2} alignItems='center'> 
@@ -12,7 +13,11 @@ export default function TransactionFooter({ setOpen }: Props) {
                 <Typography>Missing Transactions?</Typography>
             </Stack>
             <Stack color='primary.main'>
-                <AddBox onClick={() => {setOpen()}} sx={{ fontSize: '40px', cursor: 'pointer' }} />
+                <AddBox onClick={() => {
+                    handleAddMode();
+                    setOpen();
+                }} 
+                sx={{ fontSize: '40px', cursor: 'pointer' }} />
             </Stack>
         </Stack>
     )

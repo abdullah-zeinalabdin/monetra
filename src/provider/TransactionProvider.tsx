@@ -13,9 +13,13 @@ export function TransactionProvider( { children }: Props )  {
 
     const removeTransaction = (idToRemove: string) => {
         setTransaction((prev) => prev.filter(item => item.id !== idToRemove));
+    };
+
+    const editTransaction = (t: Transaction) => {
+        setTransaction((prev) => prev.map((item) => item.id === t.id ? t : item))
     }
     return (
-        <TransactionContext.Provider value={{ transactions, addTransaction, removeTransaction }}>
+        <TransactionContext.Provider value={{ transactions, addTransaction, removeTransaction, editTransaction }}>
             {children}
         </TransactionContext.Provider>
     );

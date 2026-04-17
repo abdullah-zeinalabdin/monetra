@@ -5,6 +5,7 @@ type ContextType = {
     transactions: Transaction[];
     addTransaction: (t: Transaction) => void;
     removeTransaction: (idToRemove: string) => void;
+    editTransaction: (t: Transaction) => void;
 }
 
 export const TransactionContext = createContext<ContextType| null>(null);

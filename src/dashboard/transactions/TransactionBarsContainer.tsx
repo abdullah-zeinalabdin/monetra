@@ -2,7 +2,12 @@ import { Stack } from "@mui/material";
 import TransactionBar from "./TransactionBar";
 import { useTransaction } from "../../hook/useTransactions";
 import { Fastfood, Groups, MedicalServices, Commute } from '@mui/icons-material';
-
+import type { Transaction } from "../../types/transaction";
+type Props = {
+    setOpen: () => void;
+    setSelectedTransaction: React.Dispatch<React.SetStateAction<Transaction | null>>;
+    handleEditMode: () => void;
+}
 type DisplayConfig = {
     label: string;
     icon: React.ReactNode;
@@ -11,7 +16,7 @@ type DisplayConfig = {
 type Config = {
     [key: string]: DisplayConfig
 }
-export default function TransactionBarsContainer() {
+export default function TransactionBarsContainer( { setOpen, setSelectedTransaction, handleEditMode }: Props ) {
     const { transactions } = useTransaction();
     const selectConfig: Config = {
         "food": {
@@ -37,12 +42,13 @@ export default function TransactionBarsContainer() {
                 return (
                     <TransactionBar
                     key={t.id} 
-                    id={t.id}
+                    t={t}
                     icon={selectConfig[t.category].icon} 
-                    title={t.title} 
                     category={selectConfig[t.category].label} 
-                    amount={t.amount}
-                    type={t.type} />
+                    setOpen={setOpen}
+                    setSelectedTransaction={setSelectedTransaction}
+                    handleEditMode={handleEditMode}
+                    />
                 )
             })}
         </Stack>

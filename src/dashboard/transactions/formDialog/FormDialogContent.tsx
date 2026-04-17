@@ -4,8 +4,11 @@ import FormDialogSelect from "./FormDialogSelect";
 import FormDialogText from "./FormDialogText";
 import type { Categories, Transaction } from "../../../types/transaction";
 import { useTransaction } from "../../../hook/useTransactions";
+import type { Mode } from "../../Dashboard";
 type Props = {
-    form: FormState
+    form: FormState;
+    mode: Mode;
+    selectedTransaction: Transaction | null;
     handleChange: (event: MyFormEvents) => void;
     onClose: () => void;
 }
@@ -14,8 +17,8 @@ export type SelectOptions = {
     value: Categories | string;
     label: string;
 }
-export default function FormDialogContent({ form, handleChange, onClose }: Props) {
-    const { addTransaction } = useTransaction();
+export default function FormDialogContent({ form, mode, selectedTransaction, handleChange, onClose }: Props) {
+    const { addTransaction, editTransaction } = useTransaction();
     const categoryOptions: SelectOptions[] = [
         {value: "food", label: "Food"},
         {value: "socialLife", label: "Social Life"},
@@ -29,11 +32,18 @@ export default function FormDialogContent({ form, handleChange, onClose }: Props
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const transactionObj: Transaction = {
-            id: crypto.randomUUID(),
-            date: new Date().toISOString(),
+            id : 
+            mode === "edit" && selectedTransaction
+            ? selectedTransaction.id 
+            : crypto.randomUUID(),
+            date: 
+            mode === "edit" && selectedTransaction
+            ? selectedTransaction.date
+            : new Date().toISOString(),
             ...form,
         };
-        addTransaction(transactionObj);
+        if(mode === "add") addTransaction(transactionObj);
+        else {editTransaction(transactionObj)};
         onClose();
     }
     return (

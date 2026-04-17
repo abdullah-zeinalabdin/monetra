@@ -1,17 +1,17 @@
 import { Box, Stack, Typography, Divider, IconButton, Menu, MenuItem} from "@mui/material"
 import MoreVert from '@mui/icons-material/MoreVert'
-import type { TransactionType } from "../../types/transaction"
 import { useState } from "react"
 import { useTransaction } from "../../hook/useTransactions"
+import type { Transaction } from "../../types/transaction"
 type Props = {
-    id: string;
+    t: Transaction;
     icon: React.ReactNode;
-    title: string;
     category: string;
-    amount: number;
-    type: TransactionType;
+    setOpen: () => void;
+    setSelectedTransaction: React.Dispatch<React.SetStateAction<Transaction | null>>;
+    handleEditMode: () => void;
 }
-export default function TransactionBar({id, icon, title, category, amount, type}: Props) {
+export default function TransactionBar({ t, icon, category, setOpen, setSelectedTransaction, handleEditMode}: Props) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,14 +39,14 @@ export default function TransactionBar({id, icon, title, category, amount, type}
                         {icon}
                     </Box>
                     <Stack>
-                        <Typography color="text.primary">{title}</Typography>
+                        <Typography color="text.primary">{t.title}</Typography>
                         <Typography color="text.secondary">{category}</Typography>
                     </Stack>                
                 </Stack>
                 <Stack direction='row' spacing={2} alignItems='center'>
-                    <Typography color={type === "expense" ? "error.main" : "primary.main"}>
-                        {type === "income" ? "+ " : "- "}
-                        {amount} $
+                    <Typography color={t.type === "expense" ? "error.main" : "primary.main"}>
+                        {t.type === "income" ? "+ " : "- "}
+                        {t.amount} $
                     </Typography>
                     <IconButton onClick={handleClick}>
                         <MoreVert sx={{color: 'text.primary'}}/>
@@ -56,9 +56,15 @@ export default function TransactionBar({id, icon, title, category, amount, type}
                         open={open}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Edit</MenuItem>
                         <MenuItem onClick={() => {
-                            removeTransaction(id);
+                            handleEditMode();
+                            setOpen();
+                            setSelectedTransaction(t);
+                        }}>
+                        Edit
+                        </MenuItem>
+                        <MenuItem onClick={() => {
+                            removeTransaction(t.id);
                             handleClose();
                         }}>
                         Remove
