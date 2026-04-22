@@ -1,11 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import type { Transaction } from '../types/transaction'
 import { TransactionContext } from '../context/TransactionsContext';
+import { loadTransactions, saveTransactions } from '../utils/transactionStorage';
 type Props = {
     children: React.ReactNode;
 }
 export function TransactionProvider( { children }: Props )  {
-    const [transactions, setTransaction] = useState<Transaction[]>([]);
+    const [transactions, setTransaction] = useState<Transaction[]>(loadTransactions);
+
+    useEffect(() => {
+        saveTransactions(transactions);
+    }, [transactions])
 
     const addTransaction = (t: Transaction) => {
         setTransaction((prev) => [t, ...prev]);
