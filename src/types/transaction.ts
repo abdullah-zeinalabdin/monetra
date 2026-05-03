@@ -5,6 +5,11 @@ export type Categories =
 | "socialLife"
 | "medical"
 | "transport"
+| "allowance"
+| "salary"
+| "missingFunds"
+| "bonus"
+| ""
 
 export type Transaction = {
     id: string,
