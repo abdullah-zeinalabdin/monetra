@@ -34,13 +34,26 @@ export default function FormDialog({ open, mode, selectedTransaction, onClose }:
             type: "expense",
             title: "",
             amount: 0,
-            category: "food",
+            category: "",
         };
     });
     const handleChange = (event: MyFormEvents) => {
         const { name, value } = event.target as HTMLInputElement;
-        setForm(prev => ({...prev, [name]: name === "amount" ? Number(value) : value}));
+        setForm(prev => {
+            if(name === "type") {
+                return {
+                    ...prev,
+                    type: value as TransactionType,
+                    category: value === "income" ? "salary" : "food",
+                }
+            }
+            return {
+                ...prev,
+                [name]: name === "amount" ? Number(value) : value
+            }
+        })
     };
+
     return (
         <Dialog open={open} onClose={onClose}
         sx={{

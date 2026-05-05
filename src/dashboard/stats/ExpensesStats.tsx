@@ -2,21 +2,16 @@ import { Stack } from "@mui/material";
 import ExpenseStat from "./ExpenseStat";
 import { useTransaction } from "../../hook/useTransactions";
 import { useMemo } from "react";
-
+import { AccountBalance, Savings, ShoppingCartCheckout } from '@mui/icons-material';
 export default function ExpensesStats() {
     const { transactions } = useTransaction();
-    const catAmount = useMemo(() => {
-        const amounts = {
-            foodAmount: 0,
-            medicalAmount: 0,
-            socialLifeAmount: 0,
-            transportAmount: 0,
-        }
-        transactions.map((t) => {
-            if(t.category === "food") amounts.foodAmount += t.amount;
-            else if(t.category === "medical") amounts.medicalAmount += t.amount;
-            else if(t.category === "socialLife") amounts.socialLifeAmount += t.amount;
-            else amounts.transportAmount += t.amount;
+    useMemo(() => {
+        const amounts: Record<string, number> = {};
+        transactions.forEach((t) => {
+            if (!amounts[t.category]) {
+                amounts[t.category] = 0;
+            }
+            amounts[t.category] += t.amount;
         });
         let maxKey = "";
         let maxValue = 0;
@@ -27,12 +22,27 @@ export default function ExpensesStats() {
             }
         }
         return { amounts, maxKey, maxValue };
-    }, [transactions])
+    }, [transactions]);
+    const stats = useMemo(() => {
+        let income = 0;
+        let expenses = 0;
+
+        transactions.forEach(t => {
+            if (t.type === "income") income += t.amount;
+            else expenses += t.amount;
+        });
+
+        return {
+            income,
+            expenses,
+            balance: income - expenses,
+        };
+    }, [transactions]);
     return (
         <Stack justifyContent='center' direction='row' spacing={2}>
-            <ExpenseStat />
-            <ExpenseStat />
-            <ExpenseStat />
+            <ExpenseStat Icon={<AccountBalance sx={{fontSize: "70px", color: "text.secondary"}} />} header={"Total Balance"} amount={stats.balance} />
+            <ExpenseStat Icon={<Savings sx={{fontSize: "70px", color: "text.secondary"}}/>} header={"Total Income"} amount={stats.income} />
+            <ExpenseStat Icon={<ShoppingCartCheckout sx={{fontSize: "70px", color: "text.secondary"}}/>} header={"Total Expenses"} amount={-stats.expenses} />
         </Stack>
     )
 }
