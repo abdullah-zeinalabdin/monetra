@@ -53,7 +53,7 @@ export default function TransactionBarsContainer( { setOpen, setSelectedTransact
         }
     }
     return (
-        <Stack flex={1}>
+        <Stack flex={1} sx={{minHeight: 0, overflowY: "auto"}}>
             {transactions.map((t) => {
                 return (
                     <TransactionBar

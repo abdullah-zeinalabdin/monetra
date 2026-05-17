@@ -12,7 +12,7 @@ type Props = {
 
 export default function TransactionContainer( { setOpen, handleAddMode, setSelectedTransaction, handleEditMode }: Props) {
     return (
-        <Stack bgcolor='background.paper' flex={1}>
+        <Stack sx={{minHeight: "80vh", overflowY: 'auto', borderRadius: '6px'}} bgcolor='background.paper' flex={1}>
             <TransactionHeader />
             <Divider variant="fullWidth" sx={{color: 'text.secondary', my: '10px'}} />
             <TransactionBarsContainer setOpen={setOpen} setSelectedTransaction={setSelectedTransaction} handleEditMode={handleEditMode} />

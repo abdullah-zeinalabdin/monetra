@@ -53,7 +53,7 @@ export default function FormDialog({ open, mode, selectedTransaction, onClose }:
             }
         })
     };
-
+    const isFormDisabled: boolean = !(form.amount && form.title && form.category);   
     return (
         <Dialog open={open} onClose={onClose}
         sx={{
@@ -66,7 +66,7 @@ export default function FormDialog({ open, mode, selectedTransaction, onClose }:
             <FormDialogContent form={form} mode={mode} selectedTransaction={selectedTransaction} handleChange={handleChange} onClose={onClose}/>
             <DialogActions>
                 <Button onClick={onClose}>Cancel</Button>
-                <Button type="submit" form="transaction-form">
+                <Button type="submit" form="transaction-form" disabled={isFormDisabled}>
                     Confirm
                 </Button>
             </DialogActions>
